@@ -1,0 +1,642 @@
+\documentclass{llncs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amssymb,amsmath}
+\usepackage{enumerate}
+\usepackage{todonotes}
+
+\begin{document}
+
+
+\title{Ultrametric Turing Machines with Limited Reversal Complexity
+\thanks{%
+The research was supported by Grant No. 09.1570 from the
+Latvian Council of Science and by Project 2009/0216/1DP/1.1.1.2.0/09/IPIA/VIA/044
+from the 
+European Social Fund.
+} 
+}
+
+\author{
+Rihards Kri\v slauks,
+Ieva Ruk\v s\= ane,
+Kaspars Balodis,
+Ilja Kucevalovs,\\
+R\= usi\c n\v s Freivalds}
+\institute{Institute of Mathematics and Computer Science,
+ University of Latvia,\\ Rai\c na bulv\= aris 29, Riga, LV-1459, Latvia
+}
+
+\maketitle
+
+\begin{abstract}  
+String theory in physics and molecular biology use $p$-adic numbers as a tool to
+describe properties of microworld in a more adequate way. We consider a notion of
+automata and Turing machines using $p$-adic numbers to describe random branching of 
+the process of computation. 
+We prove that Turing machines of this type can have advantages in reversal complexity over
+deterministic and probabilistic Turing machines. 
+\end{abstract} 
+
+
+
+\section{Introduction} 
+
+Pascal and Fermat believed that every event of indeterminism can be described by a real number between 0 and 1 called 
+{\em probability}. Quantum physics introduced a description in terms of complex numbers called {\em amplitude of 
+probabilities} and later in terms of probabilistic combinations of amplitudes most conveniently described by {\em density
+matrices}.
+
+String theory \cite{VVZ95}, chemistry \cite{K06} and molecular biology \cite{DD09,Kh97} have introduced $p$-adic numbers to describe
+measures of indeterminism. 
+
+There were no difficulties to implement probabilistic automata and algorithms practically. Quantum computation \cite{H01}  has made a considerable
+theoretical progress but practical implementation has met considerable difficulties. However, prototypes of quantum computers exist, some
+quantum algorithms are implemented on these prototypes, quantum cryptography is already practically used. Some people are skeptical concerning
+practicality of the initial spectacular promises of quantum computation but nobody can deny the existence of quantum computation.
+
+We consider a new type of indeterministic algorithms called {\em ultrametric} algorithms. They are very similar to probabilistic algorithms but while probabilistic algorithms use real numbers $r$ with $0 \leq r \leq 1$ as parameters, ultrametric algorithms use {\em p-adic} numbers as the parameters.
+Slightly simplifying the description of the definitions one can say that ultrametric algorithms are the same probabilistic algorithms, only the interpretation of the probabilities is different. 
+
+Our choice of $p$-adic numbers instead of real numbers is not quite arbitrary. In 1916 Alexander Ostrowski 
+proved that any non-trivial absolute value on the rational numbers $Q$ is equivalent to either the usual real absolute value or a $p$-adic absolute value.
+This result shows that using $p$-adic numbers is not merely one of many possibilities to generalize the definition of deterministic algorithms but rather the only remaining possibility not yet explored.
+
+There are many distinct $p$-adic absolute values corresponding to the many prime numbers $p$. These absolute values are traditionally  called {\em ultrametric}. 
+Absolute values are needed to consider {\em distances} among objects. We have used to rationsl and irrational numbers as measures for distances, and there is a psychological difficulty to imagine that something else can be used instead of irrational numbers.
+However, there is an important feature that distincts $p$-adic numbers from real numbers. Real numbers (both rational and irrational) are linearly ordered.
+$p$-adic numbers cannot be linearly ordered. This is why {\em valuations} of $p$-adic numbers are considered. The situation is similar in Quantum Computation. Quantum amplitudes are complex numbers which also cannot be linearly ordered. The counterpart of valuation for quantum algorithms is {\em measurement} translating a complex number $a + bi$ into a real number $a^2 + b^2$. Valuations of $p$-adic numbers are rational numbers.
+
+Ultrametric finite automata and ultrametric Turing machines are reasonably similar to probabilistic finite automata and Turing machines. Hence for the first papers on ultrametric algorithms it is important to show the features that differ ultrametric algorithms from probabilistic ones.
+
+
+Below  we consider ultrametric versus deterministic Turing machines with one input tape which can be read only 1-way and a work tape which is empty at the beginning of the work.
+The complexity measure is the number of reversals on the work tape (no reversals are allowed on the input tape). If the head on the work tape stays on the same cell for some time and then continues it's
+walk at the same direction, it is not counted as a reversal. In our examples we compare advantages of ultrametric Turing machines with a constant number of reversals over deterministic and probabilistic Turing machines with a constant number of reversals.
+
+\section{p-adic numbers} 
+
+In describing the notion of {\em p-adic numbers} we follow (not very closely) the introductory text by David A. Madore \cite{M00}. 
+
+Let $p$ be an arbitrary prime number.
+We will call {\em $p$-adic digit} a natural number between $0$ and $p-1$ (inclusive). A
+{\em $p$-adic integer} is by definition a sequence $(a_i)_{i \in N}$ of $p$-adic digits. We write this
+conventionally as
+$$
+\cdots a_i \cdots  a_2 a_1 a_0
+$$
+(that is, the $a_i$ are written from left to right).
+
+If $n$ is a natural number, and
+$$
+n = \overline{a_{k-1} a_{k-2} \cdots  a_1 a_0}
+$$
+is its $p$-adic representation (in other words 
+$n = \sum ^{k-1}_{i=0}  a_ip^i$ with each $a_i$ a\\ $p$-adic
+digit) then we identify $n$ with the $p$-adic integer $(a_i)$ with $a_i = 0$ if $i \geq k$. This
+means that natural numbers are exactly the same thing as p-adic integer only a
+finite number of whose digits are not $0$. Also note that $0$ is the $p$-adic integer all of
+whose digits are $0$, and that $1$ is the $p$-adic integer all of whose digits are $0$ except
+the right-most one (digit $0$) which is $1$.
+If $\alpha  = (a_i)$ and $\beta = (b_i)$ are two $p$-adic integers, we will now define their
+sum. To that effect, we define by induction a sequence $(c_i)$ of $p$-adic digits and a
+sequence $(\epsilon _i)$ of elements of $\{0, 1\}$ (the "carries") as follows:\\
+
+
+\begin{itemize}
+  \item  $\epsilon _0 \mbox{ is } 0.$\\
+  \item  $c_i \mbox{ is } a_i + b_i + \epsilon _i \mbox{ or } a_i + b_i + \epsilon _i - p \mbox{ according as which of these two is a }\\
+p-\mbox{adic digit (in other words, is between 0 and p - 1). In the former case,}\\
+\epsilon _i+1 = 0 \mbox{ and in the latter, } \epsilon _i+1 = 1.$
+\end{itemize}
+
+
+Under those circumstances, we let $\alpha + \beta = (c_i)$ and we call $\alpha + \beta $ the sum of
+$\alpha $ and $\beta $. Note that the rules described above are exactly the rules used for adding
+natural numbers in $p$-adic representation. In particular, if $\alpha $ and $\beta $ turn out to be
+natural numbers, then their sum as a $p$-adic integer is no different from their sum
+as a natural number. So $2 + 2 = 4$ remains valid (whatever $p$ is  but if $p = 2$ it
+would be written  $\cdots  010 + \cdots  010 = \cdots 100$).
+Here is an example of a $7$-adic addition:
+$$
+\begin{tabular}{rrrrrrrr|}
+\hline
+\cdots &2&5&1&4&1&3\\
+\hline
+\cdots & 1& 2 &1& 1 & 0& 2\\
+\hline
+\hline
+\cdots &4& 0& 2& 5& 1 & 5 \\
+\hline
+\end{tabular}
+$$
+
+
+This addition of $p$-adic integers is associative, commutative, and verifies 
+$\alpha + 0 = \alpha $ for all $\alpha $ (recall that $0$ is the $p$-adic integer all of whose digits are $0$).
+Subtraction of $p$-adic integers is also performed in exactly the same way as
+that of natural numbers in $p$-adic form. 
+Note that this subtraction scheme gives us the negative integers readily: for
+example, subtract $1$ from $0$ (in the 7-adics) :
+$$
+\begin{tabular}{rrrrrrrr|}
+\hline
+\cdots &0&0&0&0&0&0\\
+\hline
+\cdots & 0& 0 &0& 0 & 0& 1\\
+\hline
+\hline
+\cdots &6& 6& 6& 6& 6 & 6 \\
+\hline
+\end{tabular}
+$$
+(each column borrows a $1$ from the next one on the left). So $ -1 = \cdots666 $ as
+7-adics. More generally, $-1$ is the $p$-adic all of whose digits are $p-1$, $-2$ has all
+of its digits equal to $p-1$ except the right-most which is $p-2$, and so on. In fact,
+(strictly) negative integers correspond exactly to those $p$-adics all of whose digits
+except a finite number are equal to $p-1$.
+
+It can then be verified that $p$-adic integers, under addition, form an abelian
+group.
+We now proceed to describe multiplication. First note that if $n$ is a natural
+number and $\alpha $ a $p$-adic integer, then we have a naturally defined $n\alpha  = \alpha +\alpha + \cdots +\alpha $  +
+($n$ times, with $0\alpha  = 0$, of course).  This limited multiplication satisfies some obvious equalities, such as
+$(m + n)\alpha = m\alpha  + n\alpha , n(\alpha  + \beta) = n\alpha  + n\beta , m(n\alpha ) = (mn)\alpha $, and so on. 
+Note also that multiplying by $p = \cdots   0010 0$ is the same as adding a $0$
+on the right.
+Multiplying two $p$-adic integers on the other hand requires some more work.
+To do that, we note that if $\alpha _0, \alpha _1, \alpha _2, \cdots $  are $p$-adic integers, with $\alpha _1$ ending in (at
+least) one zero, $\alpha _2$ ending in (at least) two zeros, and so on, then we can define
+the sum of all the $\alpha _i$, even though they are not finite in number. Indeed, the last
+digit of the sum is just the last digit of $\alpha _0$ (since $\alpha _1, \alpha _2, \cdots $ all end in zero), the
+second-last is the second-last digit of $\alpha _0 + \alpha _1$ (because $\alpha _2, \alpha _3, \cdots $ all end in 00),
+and so on: every digit of the (infinite) sum can be calculated with just a finite sum.
+Now we suppose that we want to multiply $\alpha $ and $\beta  = (b_i)$ two $p$-adic integers. We
+then let $\alpha _0 = b_0\alpha $ (we know how to define this since $b_0$ is just a natural number),
+$\alpha _1 = pb_1\alpha $, and so on: $\alpha _i = p^ib_i\alpha $. Since $\alpha _i$ is a $p$-adic integer multiplied by $p_i$, it
+ends in $i$ zeros, and therefore the sum of all the $\alpha _i$ can be defined.
+This procedure may sound complicated, but,  it is the usual algorithm
+ to multiply two natural numbers. Here
+is an example of a 7-adic multiplication:
+$$
+\begin{tabular}{rrrrrrrr|}
+\cdots &2&5&1&4&1&3\\
+\cdots & 1& 2 &1& 1 & 0& 2\\
+\hline
+\cdots &5& 3& 3& 1& 2 & 6 \\
+\cdots &0&0& 0&0&0& \\
+\cdots &1&4&1&3&&\\
+\cdots &4&1&3&&&\\
+\cdots &2&6&&&&\\
+\cdots &3&&&&&\\
+\hline
+\cdots &3&1&0&4&2&6
+\end{tabular}
+$$
+
+
+We  have described above the set of p-adic integers, which we will call $\Integer{Z}_p$, with two binary
+operations on it, addition and multiplication. $\Integer{Z}_p$ is a commutative ring, i.e., 
+addition is associative and commutative,  zero exists
+and satisfies the properties we wish it to satisfy, that multiplication is associative
+and commutative, and distributive over addition, and that 1 exists and satisfies the
+properties we wish it to satisfy (namely, $1\alpha  = \alpha $   for all    $\alpha $).
+
+
+Division of p-adics  cannot always be
+performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer ó that is, the
+equation $p\alpha  = 1$  has no solutionósince multiplying a $p$-adic integer by $p$ always
+gives a $p$-adic integer ending in $0$. There is nothing really surprising here: $\frac{1}{p}$
+cannot be performed in the integers either.
+However, what is mildly surprising is that division by p is essentially the only
+division which cannot be performed in the p-adic integers.  This is one of the reasons why the notion of
+$p$-adic integers is generalized and {\em $p$-adic numbers} are introduced. They are formal sequences 
+of $p$-adic digits such that the sequence is infinite in the left-hand direction but finite in the
+right-hand direction. The notion of {\em $p$-adic dot} is introduced. The set of all $p$-adic numbers is denoted by 
+$Q_p$.
+
+
+For example, with our usual example of p = 7 we show that the number
+$\alpha  = \cdots  333334$  is the number ìone halfî by adding it to it itself:   
+$$
+\begin{tabular}{rrrrrrrr|}
+\cdots &3&3&3&3&3&4\\
+\cdots & 3& 3 &3& 3 & 3& 4\\
+\hline
+\hline
+\cdots &0& 0& 0& 0& 0 & 1 \\
+\hline
+\end{tabular}
+$$ 
+Thus, in the 7-adic integers, ìone halfî is an integer. And so are ìone thirdî
+$(\cdots 44445)$, ìone quarterî $(\cdots 1515152)$, ìone fifthî $(\cdots 541254125413)$, ìone
+sixthî $(\cdots 55556)$, ìone eighthî $(\cdots 0606061)$, ìone ninthî $(\cdots 3613613614)$, ìone
+tenthî $(\cdots  462046205)$, ìone eleventhî $(\cdots 162355043116235504312)$ and so on.
+But ìone seventhî, ìone fourteenthî and so on, are not 7-adic integers. They are expressed as follows.
+$$
+\begin{tabular}{rrrrrrrr|}
+\cdots &0&0&0&0&.&1\\
+\end{tabular}
+$$
+$$
+\begin{tabular}{rrrrrrrrr|}
+\cdots &0&0&0&0&.&0&1\\
+\end{tabular}
+$$
+It is important that $p$-adic numbers not being $p$-adic integers and irrational real numbers are kind of incompatible.
+It is known that no $p$-adic number corresponds to $\sqrt{2}, \pi , e$ and there is a continuum of $p$-adic numbers
+not corresponding to any real number. Moreover, if $p_1 \neq p_2$ then $p_1$-adic and $p_2$-adic numbers also are
+incompatible.
+Theory of $p$-adic numbers is presented in full detail in \cite{G83,K84}.
+
+However, $p$-adic numbers is not merely one of generalizations of rational numbers. They are very special because of the notion 
+of {\em absolute value} of numbers. 
+
+
+If $X$ is a nonempty set, a distance, or {metric}, on $X$ is a function $d$ from pairs of elements $(x,y)$ of $X$
+to the nonnegative real numbers such that 
+\begin{enumerate}
+\item $d(x,y) = 0$ if and only if $x = y$,\\
+\item $d(x,y) = d(y,x)$,\\
+\item $d(x,y) \leq d(x,z) + d(z,y)$ for all $z \in X$.
+\end{enumerate}
+
+A set $X$ together with a metric $d$ is called a {\em metric space}. The same set $X$ can give rise to many different metric spaces.
+
+
+{\em Norm} of an element $x \in X$ is the distance from $0$:
+\begin{enumerate}
+\item $\parallel x \parallel = 0$ if and only if $x = y$,\\
+\item $\parallel x.y \parallel = \parallel x \parallel . \parallel xy \parallel $,\\
+\item $\parallel x+y \parallel  \leq \parallel x \parallel  + \parallel y \parallel $.
+\end{enumerate}
+
+We know one metric on $Q$  induced by the ordinary absolute value. However, there are other norms as well.
+
+A norm  is called {\em ultrametric}  if the third requirement can be replaced by the stronger statement:
+$\parallel x+y \parallel  \leq \max \{\parallel x \parallel  , \parallel y \parallel \}$.
+Otherwise, the norm is called {\em Archimedean}.
+
+\begin{definition}
+Let $p \in \{2,3,5,7,11,13,\cdots \}$ be any prime number. For any nonzero integer $a$, let the $p$-adic ordinal (or valuation) of $a$, denoted $ord_p a$, 
+be the highest power of $p$ which divides $a$, i.e., the greatest $m$ such that $a \equiv 0 (mod p^{m})$. For any rational number $x = a/b$, 
+denote $ord_p x$ to be $ord_p a - ord_p b$. Additionally, $ord_p x = \infty $ if and only if $x = 0$.
+\end{definition}
+
+For example, the 7-adic valuation of 7 is 1. That of 14 is also 1, as are those of
+21, 28, 35, 42 or 56. The 7-adic valuation of 49, on the other hand, is 2, as is that
+of 98. And the 7-adic valuation of 343 is 3. The 2-adic valuation of an integer is
+0 iff it is odd, it is at least 1 iff it is even, at least 2 iff the integer is multiple by 4,
+and so on. The 7-adic valuation of 1/7 is -1, and so are those of 3/7, 1/14, 5/56.
+The 7-adic valuation of 1/2 or 8/3 is 0. The 7-adic valuation of 7/3 or 14/5 is 1.
+The 7-adic valuation of 48/49 is -2.
+We now define the $p$-adic absolute value (or $p$-norm) of a rational number $r$ to be 
+$|r|_p = p^{-ord_p r}$. For example, $|p|_p = \frac{1}{p} , |1|_p = 1, |2p|_p = \frac{1}{p}$
+( if $p$ is odd), and $|\frac{1}{p^2}| = p^2$.
+
+\begin{definition}
+Let $p \in \{2,3,5,7,11,13,\cdots \}$ be any prime number. For arbitrary rational number $x$, its {\em $p$-norm} is:
+
+$|x|_p =$ \left\{
+            \begin{tabular}{ccc}
+            $\frac{1}{p^{ord_p x}}$, &  if  & $x \neq 0$;\\
+            0,        &   if  & $x = 0$.
+            \end{tabular}
+            \right.
+
+\end{definition} 
+ 
+To make the equivalence of both definitions clearer, we say that the valuation
+of a $p$-adic number $(a_i)$ is the smallest $i_0$ (possibly positive) such that $a_i = 0$ for
+all $i < i_0$. With this terminology, a $p$-adic integer is exactly a $p$-adic number with
+non negative valuation. And a small $p$-adic integer (one which ends in 0) is one
+whose valuation is (strictly) positive. It is not hard to check that this definition
+coincides with the aforementioned one for integers, hence for rationals.
+As for rationals, we define the $p$-adic absolute value and distance by $|\alpha |_p =
+p^{- ord_p \alpha }$. Note that the $p$-adic absolute value of a $p$-adic number is real number (it
+is also a $p$-adic, and in fact a rational, but ought not be considered as such).            
+
+Rational numbers are $p$-adic integers for all prime numbers $p$. The nature of irrational numbers is more complicated. For instance, $\sqrt{2}$ just does not exist as a $p$-adic number. On the other hand, there is a of continuum  $p$-adic numbers not being real numbers. Moreover, there is a continuum of $3$-adic numbers not being $5$-adic numbers, and vice versa.
+ 
+\section{Ultrametric machines}
+
+Ultrametric machines are defined exactly in the same way as probabilistic machines, only the parameters called {\em probabilities of transition}  from one state
+to another one are real numbers between 0 and 1 in probabilistic machines, and they
+are $p$-adic numbers called {\em amplitudes} in the ultrametric machines. Formulas to calculate the amplitudes after one, two, three, $\cdots $ steps of computation are exactly the same as the formulas to calculate the probabilities in the probabilistic machines. 
+
+
+The definition of ultrametric machines requires that the input word on the input tape is followed by a special
+marker denoting the end of the input data.  While reading the end-marker the ultrametric machine makes the final change of the amplitudes of the involved states and additinally makes {\em measurement} transforming all the amplitudes (being $p$-adic numbers) into probabilities (being norms of the measured amplitudes).
+
+Ultrametric machine has a threshold $\lambda $ and the input word $x$ is accepted if the measured probability of the accepting state exceeds the threshold.
+
+It is needed to note that if there is only one accepting state then the possible probabilities of acceptance are discrete values $0, p^1, p^{-1}, p^2, p^{-2}, p^3,
+p^{-3}, \cdots $. Hence there is no natural counterpart of {\em isolated cut-point} or {\em bounded error} for ultrametric machines. On the other hand, Paavo Turakainen proved in 1969 that there is no need to demand in cases of probabilistic branchings that total of probabilities for all possible continuations equal 1. He considered generalized probabilistic finite automata where the "probabilities" can be arbitrary real numbers, and that languages recognizable by these generalized probabilistic finite automata are the same as for ordinary probabilistic finite automata. Hence we also allow usage of all possible $p$-adic numbers in $p$-ultrametric machines. 
+
+On the other hand, $p_1$-ultrametric and $p_2$-ultrametric machines for recognition of the same language can differ very much. 
+
+
+
+
+
+
+
+\section{Results} 
+
+At first we consider the language $Q \subseteq \{0,1,2,3\}^*$. By $|x|_a$ we denote the number of occurrences of the symbol $a$ in the word $x$.
+The language $Q$ is defined as
+$$
+Q = \{ x3y \mid x \in \{0,1,2\}^* \wedge  y \in \{0,1,2\}^* \wedge  |x|_0 = |y|_0  \wedge |x|_1 = |y|_1 \wedge  |x|_2 = |y|_2 \}.
+$$
+
+
+
+
+
+
+
+
+
+
+\begin{theorem}
+\label{Th7a}
+(1) For arbitrary $\epsilon > 0$  there is a probabilistic 1-way Turing machine recognizing the language $Q$  with no more than $1$ reversal such that any word in $Q$ is accepted with probability $1$, 
+and any word not in $Q$ is rejected with a probability no less than $1 - \epsilon $.\\
+(2) For arbitrary prime number $p \geq 5$ there is an $p$-ultrametric 1-way Turing machine with no more than $1$ reversal recognizing $Q$,\\
+(3) For arbitrary deterministic 1-way Turing machine recognizing the language $Q$  there is a constant $c > 0$ such that for infinitely many input words $x$ the number of the reversals of the machine 
+exceeds $c \log |x|$ .\\
+ (4) For arbitrary $c > 0$  there is a deterministic 1-way Turing machine recognizing the language $Q$ with no more than $c \log |x|$  reversals.
+\end{theorem}
+
+\begin{proof}
+(1) At first a the probabilistic machine picks a random number $i$ from the set $\{1, 2, ... , \lceil \frac{\epsilon}{3}\rceil \}$. 
+The work tape of the machine is used as a counter by writing natural numbers in unary alphabet on it. While the word $x$ is being read from the input tape, a number $1\cdot|x|_0 + i^1\cdot|x|_1 + i^2\cdot|x|_2$ is written on the work tape. Afterwards, while the word $y$ is being read, a number $1\cdot|y|_0 + i^1\cdot|y|_1 + i^2\cdot|y|_2$ is subtracted from the counter. A given word is accepted if and only if $1\cdot|x|_0 + i^1\cdot|x|_1 + i^2\cdot|x|_2 = 1\cdot|y|_0 + i^1\cdot|y|_1 + i^2\cdot|y|_2$. 
+
+The essence of this part of the proof is to observe that a system of linear equations
+$$
+\left\{
+\begin{tabular}{lcl}
+a_0 + ia_1 + i^2a_2 & = & 0\\ 
+a_0 + ja_1 + j^2a_2 & = & 0\\ 
+a_0 + ka_1 + k^2a_2 & = & 0
+\end{tabular}
+\right.
+$$
+is a system with a Vandermonde determinant which is not equal to 0 if $i,j,k$ are distinct. Hence in our algorithm
+$|x|_0 = |y|_0  \wedge |x|_1 = |y|_1 \wedge  |x|_2 = |y|_2$ iff $1\cdot|x|_0 + i^1\cdot|x|_1 + i^2\cdot|x|_2 = 1\cdot|y|_0 + i^1\cdot|y|_1 + i^2\cdot|y|_2$ for
+at least 3 values of $i$.
+
+\bigskip
+
+(2) The $p$-ultrametric Turing machine picks a  number $i$ from the set $\{1, 2, ... ,\\ 3+p\cdot\lceil \frac{\epsilon}{3}\rceil \}$ and works (in parallel mode) with one of these $i$.
+The work tape of the machine is used as a counter by writing natural numbers in unary alphabet on it. While the word $x$ is being read from the input tape, a number $1\cdot|x|_0 + i^1\cdot|x|_1 + i^2\cdot|x|_2$ is written on the work tape. Afterwards, while the word $y$ is being read, a number $1\cdot|y|_0 + i^1\cdot|y|_1 + i^2\cdot|y|_2$ is subtracted from the counter. There is a special state of the machine, and the machine starts with amplitude $(-3)$ of this state.The machine 
+adds 1 to the amplitude of this state 
+ if and only if $1\cdot|x|_0 + i^1\cdot|x|_1 + i^2\cdot|x|_2 = 1\cdot|y|_0 + i^1\cdot|y|_1 + i^2\cdot|y|_2$ for some $i$. The properties of the Vandermonde determinant imply that either the equality holds for all $p\lceil \frac{\epsilon}{3}\rceil $ values of $i$ and hence the valuation of the amplitude of the special state does not exceed $p^{-1}$
+ (when the input word is in the language) or the amplitude equals $-3, -2, -1$ (because no more than 2 distinct values of $i$ can give equality 
+(when the input word is not in the language). This is a recognition of the language.
+
+
+
+\bigskip
+
+(3) Let us denote by $\mu$ a deterministic 1-way Turing machine recognizing the language $Q$.
+Let us at first consider some simple properties of $\mu$.
+
+1) While a letter $3$ is not read from the input tape, the number of zeros and twos read beforehand must be memorized. More precisely: if two distinct words $x_1$ and $x_2$ not containing the letter $3$, having $|x_1|_0 \neq |x_2|_0$ or $|x_1|_1 \neq |x_2|_1$ or $|x_1|_2 \neq |x_2|_2$, have been read then the configuration of machine at the moment of reading the last letter of these words is different.
+
+2) Let us consider a situation when not a single letter $3$ has been read yet and let us denote by $l$ the length of some zone on the work tape. Let the head of work tape at some moment be positioned over this zone while only letters different from $3$ are read. Then after at most $a\cdot b\cdot l$ steps (where $a$ - the number if inner states and $b$ - the number of letters of the work tape) the head will either make a reversal or leave the designated zone. (If this is not the case two distinct words would lead to the same configuration which would contradict property 1).)
+
+Let us suppose by contradiction that the machine $\mu$ on a random word $w$ makes $o(\log |w|)$ reversals.
+
+Let $n$ be a sufficiently large natural number. Exact requirements for it are specified later. Let us consider the following set $M$ in alphabet $\{0, 1, 2, 3\}$. Each word in $M$ will have a single letter $3$ and at most $O(n^2)$ ones. The number of zeros and the number of twos will be in between 1 and $n$. Let us now define the form of word in $M$ containing $n_0$ zeros and $n_2$ twos (there is going to be only one such word). As we do this we will consider how it is processed by $\mu$.
+
+Let us denote by $c(w, i)$ the number of intersections of a point $i$ on the work tape of machine $\mu$ and a word $w$ and let us denote by $f(n)$ $\max c(w, i)$, where the maximum is taken over all words of length $\leq (2a^2\cdot b+1)n^2$ and all points of the tape. Let us note that $f(n)=o(\log n)$ which follows from the supposition by contradiction. %TODO varb≈´t vajag pƒÅrformulƒìt.
+The word starts with $n_0$ zeros. The part of the work tape which is traversed while reading these zeros will be called the zone of zeros. The length of the zone of zeros does not exceed $2a\cdot (n_0+f(n))$.
+
+After reading the first $n_0$ zeros our word is constructed as follows. If the machine is going to read a letter from the input tape and while doing so the head is positioned over the zone of zeros then this letter is set to be $1$. %TODO varb≈´t vajag pƒÅrformulƒìt
+If however the head is not positioned over the zone of zeros the letter is set to be $2$. This continues while the number of twos in our word reaches $n_2$. After that we set the next letter to be $3$. Afterwards we again consider how the word is going to be processed by the machine. %TODO varb≈´t vajag pƒÅrformulƒìt.
+While the head is positioned over the zone of zeros the corresponding input letters are set to be $2$. Whereas they are set to be $0$ while the head is positioned elsewhere. This continues until there is a total of $n_0$ zeros or $n_2$ twos after the letter $3$. After which the remaining zeros (or twos) and ones are written at the end of the word so that it belongs to the language $Q$.
+
+Let us note the following peculiarity of how these words are processed by the machine $\mu$. If $n_0$ zeros on the second half of a word appear before $n_2$ twos then all of the zeros there are processed by $\mu$ while not in the zone of zeros. However if $n_2$ twos on the second half of the word appear before $n_0$ zeros then all of the twos there are processed by $\mu$ wile in zone of zeros. (Note that all of twos of the first part of the word are processed while not in the zone of zeros.)
+
+Since the machine $\mu$ has property 2), there can be no more than $a\cdot b\cdot (2a\cdot (n_0+f(n)))$ consequent ones after each of letters $2$ before a letter $3$ if a reversal is not made at that place. Furthermore, each of the reversals can add no more than $a\cdot b\cdot (2a\cdot (n_0+f(n)))$ ones. This implies that the total number of ones before a letter $3$ can be at most $n_2+f(n)\cdot a\cdot b\cdot (2a\cdot (n_0+f(n)))$. For a sufficiently large $n$ this value does not exceed $(2a^2\cdot b+1)$. Let us require $n$ to be this large. (Later we consider another restraint on $n$.) As a result the length of the word does not exceed $O(n^2)$.
+
+Let us divide $M$ in two subsets. A word $w$ is in subset $M'$ if it's last zero appears before it's last two. Otherwise $w$ is put in $M''$.
+
+We consider these two cases:
+\begin{enumerate}[a)]
+\item $|M'| \geq |M''|$;
+\item $|M'| < |M''|$.
+\end{enumerate}
+Let us denote by $M_1$ the subset $M'$ in the case of a), and the subset $M''$ in the case of b). $$|M_1|\geq \frac{n^2}{2}$$
+
+In the case of a) we split $M_1$ into subsets based on the number of twos in a word. Let us denote by $M_2$ the largest of these subsets. In the case of b) we split $M_1$ in subsets based on the number of zeros in a word. Similarly, we denote by $M_2$ the largest of these subsets. $$|M_2|\geq \frac{n^2}{2}$$
+
+Let us split $M_2$ in subsets based on the crossing sequences at the two points restricting the zone of zeros from the left and right. Let us denote by $M_3$ the largest of these subsets. $$M_3 \geq \frac{n}{2\cdot (2a+1)^{2\cdot f(n)}}$$
+
+Now we are able to make precise the size of $n$. It is to be such that the estimate for $|m_3|$ exceeds 2. We fix two distinct words $w_1$ and $w_2$ in $M_3$.
+
+We construct a word $w_3$ the following way. The initial fragment of $w_3$ (till the symbol 3) copies $w_1$. In order to define subsequent symbols of $w_3$ we simulate the processing of the words $w_1$ and $w_2$. We cut these words into pieces in accordance of the place of the the head, namely, over the zone of zeros or not. The number of these pieces for $w_1$ and $w_2$is the same because the lengths of the crossing sequences are the same. In the case of a) we construct $w_3$ from the pieces of $w_1$ read in the zone of zeros (these pieces do not contain zeros) and the pieces of $w_2$ read outside   the zone of zeros (all the zeros of the second half of $w_2$ are in these pieces). In the case of b) we construct $w_3$ from the pieces of $w_2$ read over the zone of zeros (all symbols 2 of the second half of $w_2$ are in these pieces), and the pieces of $w_1$ read outside the zone of zeros (these pieces do not contain zeros). 
+
+The machine accepts $w_3$ but the word is not in $Q$. 
+\qed
+
+\end{proof}
+
+\bigskip
+
+
+
+
+
+
+
+
+
+
+Let $A = \{a,b,c,d,e,f,g,h,k,l,m,p,q,r,s,t,u,v\}$.
+Now we consider a language $T$ in the alphabet $A \cup \{\#\} $ for which both the deterministic and probabilistic reversal complexity is linear but an ultrametric Turing machine can recognize this language with a constant number of reversals.
+
+The language $T$ is defined as the set of all the words $x$ in the input alphabet such that either $x$ is in all 9 languages $T_i$ described below or in exactly 6 of them or in exactly 3 of them or in none of them where
+$$
+T_1 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{ab}(x) = proj_{ab}(y)\},
+$$
+$$
+T_2 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{cd}(x) = proj_{cd}(y)\},
+$$
+$$
+T_3 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{ef}(x) = proj_{ef}(y)\},
+$$
+$$
+T_4 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{gh}(x) = proj_{gh}(y)\},
+$$
+$$
+T_5 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{kl}(x) = proj_{kl}(y)\},
+$$
+$$
+T_6 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{mp}(x) = proj_{mp}(y)\},
+$$
+$$
+T_7 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{qr}(x) = proj_{qr}(y)\},
+$$
+$$
+T_8 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{st}(x) = proj_{st}(y)\},
+$$
+$$
+T_9 = \{x\#y \mid x \in A^* \wedge y \in A^* \wedge proj_{uv}(x) = proj_{uv}(y)\}.
+$$
+
+\begin{theorem}
+\label{pirma}
+(1) There is a 3-ultrametric 1-way Turing machine recognizing the language $T$  with no more than $1$ reversal.\\
+(2) For arbitrary $p$-ultrametric (with $ p > 3$) 1-way Turing machine recognizing the language $T$  there is a constant $c > 0$ such that for infinitely many input words $x$ the number of the reversals of the machine 
+exceeds $c$ .\\
+(3) For arbitrary deterministic 1-way Turing machine recognizing the language $T$  there is a constant $c > 0$ such that for infinitely many input words $x$ the number of the reversals of the machine 
+exceeds $c |x|$ .\\
+ (4) For  arbitrary $c > 0$  there is a deterministic 1-way Turing machine recognizing the language $T$  with no more than $c |x|$  reversals.\\
+ (5) For arbitrary probabilistic 1-way Turing machine recognizing the language $T$  there is a constant $c > 0$ such that for infinitely many input words $x$ the number of the reversals of the machine 
+exceeds $c |x|$ .\\
+\end{theorem}
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{Abl89}
+Farid M. Ablayev. 
+On Comparing Probabilistic and Deterministic Automata Complexity of Languages. 
+{\em Lecture Notes in Computer Science,} 379, 599-605  , 1989.
+
+\bibitem{AF86}
+Farid M. Ablayev, R\= usi\c n\v s Freivalds. 
+Why Sometimes Probabilistic Algorithms Can Be More Effective. 
+{\em Lecture Notes in Computer Science,} 233 :1--14, 1986.
+
+
+\bibitem{C95}
+Cristian Calude.
+What Is a Random String?
+{\em Journal of Universal Computer Science,} vol. 1, No. 1, pp. 48--66, 1995.
+
+\bibitem{C05}
+Cristian Calude.
+Algorithmic Randomness, Quantum Physics, and Incompleteness.
+{\em Lecture Notes in Computer Science,} vol. 3354, pp. 1--17, 2005.
+
+
+\bibitem{DD09}
+Branko Dragovich and Alexandra Dragovich.
+A $p$-adic Model
+of DNA Sequence and Genetic Code.
+{\em $p$-adic Numbers, Ultrametric Analysis, and Applications,}
+vol. 1, No 1, 34--41, 2009
+
+\bibitem{F99}
+R\= usi\c n\v s Freivalds.
+How to Simulate Free Will in a Computational Device. 
+{\em ACM Computing Surveys,} vol. 31, No. 3es, p. 15, 1999.
+
+
+\bibitem{F91}
+R\= usi\c n\v s Freivalds.
+Complexity of Probabilistic Versus Deterministic Automata. 
+{\em Lecture Notes in Computer Science,} 502:565-613, 1991. 
+
+\bibitem{FK94}
+R\= usi\c n\v s Freivalds, Marek Karpinski. 
+Lower Space Bounds for Randomized Computation. 
+{\em Lecture Notes in Computer Science,} 820:580-592, 1994. 
+
+
+
+
+\bibitem{G83}
+Fernando Quadros Gouvea.
+$p$-adic Numbers: An Introduction (Universitext),
+Springer; 2nd edition, 1983.
+
+
+\bibitem{H01}
+Mika Hirvensalo.
+{\em Quantum Computing.} Springer-Verlag, Berlin-Heidelberg,  2001.
+
+\bibitem{H08}
+Mika Hirvensalo.
+Various Aspects of Finite Quantum Automata. 
+{\em Lecture Notes in Computer Science,} vol. 5257, pp. 21--33, 2008. 
+
+
+\bibitem{Kh97}
+Andrei Yu. Khrennikov.
+{\em NonArchimedean Analysis: Quantum Paradoxes, Dynamical Systems and
+Biological Models,} Kluwer Academic Publishers, 1997.
+
+\bibitem{K84}
+Neal Koblitz.
+{\em $p$-adic Numbers, $p$-adic Analysis, and Zeta-Functions} (Graduate Texts in Mathematics) (v. 58)
+Springer; 2nd edition, 1984.
+
+\bibitem{K06}
+Sergey V. Kozyrev. 
+Ultrametric Analysis and Interbasin Kinetics.
+{\em $p$-adic Mathematical Physics,} Proc. of the 2nd International Conference on $p$-adic 
+Mathematical Physics, American Institute Conference Proceedings,
+vol. 826, pp. 121--128, 2006.
+
+
+\bibitem{Mac98}
+Ioan I. Macarie: 
+Space-Efficient Deterministic Simulation of Probabilistic Automata. 
+{\em SIAM Journal on Computing,} 27(2): 448-465, 1998.
+
+\bibitem{M00}
+David A. Madore.
+A first introduction to $p$-adic numbers.
+http://www.madore.org/~david/math/padics.pdf 
+
+
+
+\bibitem{MP01}
+M.Milani, G.Pighizzini.
+Tight bounds on the simulation of unary probabilistic automata
+by deterministic automata.
+\textit{Journal of Automata, Languages and Combinatorics}, v.6, No.4, pp.481--492, 2001.
+
+
+\bibitem{NH71}
+M.Nasu and N.Honda.
+A context-free language which is not accepted by a probabilistic automaton.
+\textit {Information and Control}, v.18, No.3, pp. 233--236, 1971.
+
+\bibitem{P66}
+Azaria Paz.
+Some aspects of probabilistic automata.
+\textit {Information and Control}, v. 9, No. 1, pp. 26--60, 1966.
+
+\bibitem{R57}
+Michael O. Rabin.
+Two-way finite automata.
+{\em Summaries of Talks Presented at the Summer Institute of Symbolic Logic}
+(Cornell University, 1957), 2nd ed. Comm. Res. Div. , Instit. Defense Anal., Princeton, N.J., pp. 366--369, 1960.
+
+\bibitem{R63}
+Michael O. Rabin.
+Probabilistic Automata.
+\textit{Information and Control}, v. 6, No. 3, pp. 230--245, 1963.
+
+
+
+\bibitem{T69}
+Paavo Turakainen.
+Generalized Automata and Stochastic Languages.
+{\em Proceedings of the American Mathematical Society,} vol. 21, No. 2, pp. 303--309, 1969.
+
+
+\bibitem{VVZ95}
+V. S. Vladimirov, I. V. Volovich and E. I. Zelenov.
+{\em $p$-adic Analysis and Mathematical Physics} 
+World Scientific, Singapore, 1995. 
+
+\end{thebibliography}
+
+\end{document}
