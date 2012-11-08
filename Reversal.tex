@@ -119,7 +119,7 @@ as a natural number. So $2 + 2 = 4$ remains valid (whatever $p$ is  but if $p = 
 would be written $\cdots  010 + \cdots  010 = \cdots 100$).
 Here is an example of a $7$-adic addition:
 $$
-\begin{tabular}{rrrrrrrr|}
+\begin{array}{rrrrrrrr|}
 \hline
 \cdots &2&5&1&4&1&3\\
 \hline
@@ -128,7 +128,7 @@ $$
 \hline
 \cdots &4& 0& 2& 5& 1 & 5 \\
 \hline
-\end{tabular}
+\end{array}
 $$
 
 
@@ -139,7 +139,7 @@ that of natural numbers in $p$-adic form.
 Note that this subtraction scheme gives us the negative integers readily: for
 example, subtract $1$ from $0$ (in the 7-adics) :
 $$
-\begin{tabular}{rrrrrrrr|}
+\begin{array}{rrrrrrrr|}
 \hline
 \cdots &0&0&0&0&0&0\\
 \hline
@@ -148,7 +148,7 @@ $$
 \hline
 \cdots &6& 6& 6& 6& 6 & 6 \\
 \hline
-\end{tabular}
+\end{array}
 $$
 (each column borrows a $1$ from the next one on the left). So $ -1 = \cdots 666 $ as
 7-adics. More generally, $-1$ is the $p$-adic all of whose digits are $p-1$, $-2$ has all
@@ -179,7 +179,7 @@ This procedure may sound complicated, but,  it is the usual algorithm
  to multiply two natural numbers. Here
 is an example of a 7-adic multiplication:
 $$
-\begin{tabular}{rrrrrrrr|}
+\begin{array}{rrrrrrrr|}
 \cdots &2&5&1&4&1&3\\
 \cdots & 1& 2 &1& 1 & 0& 2\\
 \hline
@@ -191,12 +191,11 @@ $$
 \cdots &3&&&&&\\
 \hline
 \cdots &3&1&0&4&2&6
-\end{tabular}
+\end{array}
 $$
 
-
-We  have described above the set of p-adic integers, which we will call $\Integer{Z}_p$, with two binary
-operations on it, addition and multiplication. $\Integer{Z}_p$ is a commutative ring, i.e., 
+We  have described above the set of p-adic integers, which we will call $\mathbb{Z}_p$, with two binary
+operations on it, addition and multiplication. $\mathbb{Z}_p$ is a commutative ring, i.e., 
 addition is associative and commutative,  zero exists
 and satisfies the properties we wish it to satisfy, that multiplication is associative
 and commutative, and distributive over addition, and that 1 exists and satisfies the
@@ -219,29 +218,29 @@ $Q_p$.
 For example, with our usual example of p = 7 we show that the number
 $\alpha  = \cdots 333334$  is the number “one half” by adding it to it itself:   
 $$
-\begin{tabular}{rrrrrrrr|}
+\begin{array}{rrrrrrrr|}
 \cdots &3&3&3&3&3&4\\
 \cdots & 3& 3 &3& 3 & 3& 4\\
 \hline
 \hline
 \cdots &0& 0& 0& 0& 0 & 1 \\
 \hline
-\end{tabular}
-$$ 
+\end{array}
+$$
 Thus, in the 7-adic integers, “one half” is an integer. And so are “one third”
 $(\cdots 44445)$, “one quarter” $(\cdots 1515152)$, “one fifth” $(\cdots 541254125413)$, “one
 sixth” $(\cdots 55556)$, “one eighth” $(\cdots 0606061)$, “one ninth” $(\cdots 3613613614)$, “one
 tenth” $(\cdots  462046205)$, “one eleventh” $(\cdots 162355043116235504312)$ and so on.
 But “one seventh”, “one fourteenth” and so on, are not 7-adic integers. They are expressed as follows.
 $$
-\begin{tabular}{rrrrrrrr|}
+\begin{array}{rrrrrrrr|}
 \cdots &0&0&0&0&.&1\\
-\end{tabular}
+\end{array}
 $$
 $$
-\begin{tabular}{rrrrrrrrr|}
+\begin{array}{rrrrrrrrr|}
 \cdots &0&0&0&0&.&0&1\\
-\end{tabular}
+\end{array}
 $$
 It is important that $p$-adic numbers not being $p$-adic integers and irrational real numbers are kind of incompatible.
 It is known that no $p$-adic number corresponds to $\sqrt{2}, \pi , e$ and there is a continuum of $p$-adic numbers
@@ -297,12 +296,11 @@ $|r|_p = p^{-ord_p r}$. For example, $|p|_p = \frac{1}{p} , |1|_p = 1, |2p|_p = 
 \begin{definition}
 Let $p \in \{2,3,5,7,11,13,\cdots \}$ be any prime number. For arbitrary rational number $x$, its {\em $p$-norm} is:
 
-$|x|_p =$ \left\{
-            \begin{tabular}{ccc}
-            $\frac{1}{p^{ord_p x}}$, &  if  & $x \neq 0$;\\
-            0,        &   if  & $x = 0$.
-            \end{tabular}
-            \right.
+$$|x|_p = \begin{cases}
+            \frac{1}{p^{ord_p x}}, &  \text{if $x \neq 0$;}\\
+            0, & \text{if $x = 0$.}
+            \end{cases}
+$$
 
 \end{definition} 
  
@@ -375,11 +373,11 @@ The work tape of the machine is used as a counter by writing natural numbers in 
 The essence of this part of the proof is to observe that a system of linear equations
 $$
 \left\{
-\begin{tabular}{lcl}
+\begin{array}{lcl}
 a_0 + ia_1 + i^2a_2 & = & 0\\ 
 a_0 + ja_1 + j^2a_2 & = & 0\\ 
 a_0 + ka_1 + k^2a_2 & = & 0
-\end{tabular}
+\end{array}
 \right.
 $$
 is a system with a Vandermonde determinant which is not equal to 0 if $i,j,k$ are distinct. Hence in our algorithm
