@@ -116,7 +116,7 @@ $\alpha $ and $\beta $. Note that the rules described above are exactly the rule
 natural numbers in $p$-adic representation. In particular, if $\alpha $ and $\beta $ turn out to be
 natural numbers, then their sum as a $p$-adic integer is no different from their sum
 as a natural number. So $2 + 2 = 4$ remains valid (whatever $p$ is  but if $p = 2$ it
-would be written  $\cdots  010 + \cdots  010 = \cdots 100$).
+would be written $\cdots  010 + \cdots  010 = \cdots 100$).
 Here is an example of a $7$-adic addition:
 $$
 \begin{tabular}{rrrrrrrr|}
@@ -150,7 +150,7 @@ $$
 \hline
 \end{tabular}
 $$
-(each column borrows a $1$ from the next one on the left). So $ -1 = \cdots666 $ as
+(each column borrows a $1$ from the next one on the left). So $ -1 = \cdots 666 $ as
 7-adics. More generally, $-1$ is the $p$-adic all of whose digits are $p-1$, $-2$ has all
 of its digits equal to $p-1$ except the right-most which is $p-2$, and so on. In fact,
 (strictly) negative integers correspond exactly to those $p$-adics all of whose digits
@@ -159,10 +159,10 @@ except a finite number are equal to $p-1$.
 It can then be verified that $p$-adic integers, under addition, form an abelian
 group.
 We now proceed to describe multiplication. First note that if $n$ is a natural
-number and $\alpha $ a $p$-adic integer, then we have a naturally defined $n\alpha  = \alpha +\alpha + \cdots +\alpha $  +
+number and $\alpha $ a $p$-adic integer, then we have a naturally defined $n\alpha  = \alpha +\alpha + \cdots +\alpha $
 ($n$ times, with $0\alpha  = 0$, of course).  This limited multiplication satisfies some obvious equalities, such as
 $(m + n)\alpha = m\alpha  + n\alpha , n(\alpha  + \beta) = n\alpha  + n\beta , m(n\alpha ) = (mn)\alpha $, and so on. 
-Note also that multiplying by $p = \cdots   0010 0$ is the same as adding a $0$
+Note also that multiplying by $p = \cdots 00100$ is the same as adding a $0$
 on the right.
 Multiplying two $p$-adic integers on the other hand requires some more work.
 To do that, we note that if $\alpha _0, \alpha _1, \alpha _2, \cdots $  are $p$-adic integers, with $\alpha _1$ ending in (at
@@ -204,8 +204,8 @@ properties we wish it to satisfy (namely, $1\alpha  = \alpha $   for all    $\al
 
 
 Division of p-adics  cannot always be
-performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer � that is, the
-equation $p\alpha  = 1$  has no solution�since multiplying a $p$-adic integer by $p$ always
+performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer — that is, the
+equation $p\alpha  = 1$  has no solution—since multiplying a $p$-adic integer by $p$ always
 gives a $p$-adic integer ending in $0$. There is nothing really surprising here: $\frac{1}{p}$
 cannot be performed in the integers either.
 However, what is mildly surprising is that division by p is essentially the only
@@ -217,7 +217,7 @@ $Q_p$.
 
 
 For example, with our usual example of p = 7 we show that the number
-$\alpha  = \cdots  333334$  is the number �one half� by adding it to it itself:   
+$\alpha  = \cdots 333334$  is the number “one half” by adding it to it itself:   
 $$
 \begin{tabular}{rrrrrrrr|}
 \cdots &3&3&3&3&3&4\\
@@ -228,11 +228,11 @@ $$
 \hline
 \end{tabular}
 $$ 
-Thus, in the 7-adic integers, �one half� is an integer. And so are �one third�
-$(\cdots 44445)$, �one quarter� $(\cdots 1515152)$, �one fifth� $(\cdots 541254125413)$, �one
-sixth� $(\cdots 55556)$, �one eighth� $(\cdots 0606061)$, �one ninth� $(\cdots 3613613614)$, �one
-tenth� $(\cdots  462046205)$, �one eleventh� $(\cdots 162355043116235504312)$ and so on.
-But �one seventh�, �one fourteenth� and so on, are not 7-adic integers. They are expressed as follows.
+Thus, in the 7-adic integers, “one half” is an integer. And so are “one third”
+$(\cdots 44445)$, “one quarter” $(\cdots 1515152)$, “one fifth” $(\cdots 541254125413)$, “one
+sixth” $(\cdots 55556)$, “one eighth” $(\cdots 0606061)$, “one ninth” $(\cdots 3613613614)$, “one
+tenth” $(\cdots  462046205)$, “one eleventh” $(\cdots 162355043116235504312)$ and so on.
+But “one seventh”, “one fourteenth” and so on, are not 7-adic integers. They are expressed as follows.
 $$
 \begin{tabular}{rrrrrrrr|}
 \cdots &0&0&0&0&.&1\\
@@ -410,11 +410,11 @@ Let us suppose by contradiction that the machine $\mu$ on a random word $w$ make
 
 Let $n$ be a sufficiently large natural number. Exact requirements for it are specified later. Let us consider the following set $M$ in alphabet $\{0, 1, 2, 3\}$. Each word in $M$ will have a single letter $3$ and at most $O(n^2)$ ones. The number of zeros and the number of twos will be in between 1 and $n$. Let us now define the form of word in $M$ containing $n_0$ zeros and $n_2$ twos (there is going to be only one such word). As we do this we will consider how it is processed by $\mu$.
 
-Let us denote by $c(w, i)$ the number of intersections of a point $i$ on the work tape of machine $\mu$ and a word $w$ and let us denote by $f(n)$ $\max c(w, i)$, where the maximum is taken over all words of length $\leq (2a^2\cdot b+1)n^2$ and all points of the tape. Let us note that $f(n)=o(\log n)$ which follows from the supposition by contradiction. %TODO varbūt vajag pārformulēt.
+Let us denote by $c(w, i)$ the number of intersections of a point $i$ on the work tape of machine $\mu$ and a word $w$ and let us denote by $f(n)$ $\max c(w, i)$, where the maximum is taken over all words of length $\leq (2a^2\cdot b+1)n^2$ and all points of the tape. Let us note that $f(n)=o(\log n)$ which follows from the supposition by contradiction. %TODO varbÅ«t vajag pÄrformulÄ“t.
 The word starts with $n_0$ zeros. The part of the work tape which is traversed while reading these zeros will be called the zone of zeros. The length of the zone of zeros does not exceed $2a\cdot (n_0+f(n))$.
 
-After reading the first $n_0$ zeros our word is constructed as follows. If the machine is going to read a letter from the input tape and while doing so the head is positioned over the zone of zeros then this letter is set to be $1$. %TODO varbūt vajag pārformulēt
-If however the head is not positioned over the zone of zeros the letter is set to be $2$. This continues while the number of twos in our word reaches $n_2$. After that we set the next letter to be $3$. Afterwards we again consider how the word is going to be processed by the machine. %TODO varbūt vajag pārformulēt.
+After reading the first $n_0$ zeros our word is constructed as follows. If the machine is going to read a letter from the input tape and while doing so the head is positioned over the zone of zeros then this letter is set to be $1$. %TODO varbÅ«t vajag pÄrformulÄ“t
+If however the head is not positioned over the zone of zeros the letter is set to be $2$. This continues while the number of twos in our word reaches $n_2$. After that we set the next letter to be $3$. Afterwards we again consider how the word is going to be processed by the machine. %TODO varbÅ«t vajag pÄrformulÄ“t.
 While the head is positioned over the zone of zeros the corresponding input letters are set to be $2$. Whereas they are set to be $0$ while the head is positioned elsewhere. This continues until there is a total of $n_0$ zeros or $n_2$ twos after the letter $3$. After which the remaining zeros (or twos) and ones are written at the end of the word so that it belongs to the language $Q$.
 
 Let us note the following peculiarity of how these words are processed by the machine $\mu$. If $n_0$ zeros on the second half of a word appear before $n_2$ twos then all of the zeros there are processed by $\mu$ while not in the zone of zeros. However if $n_2$ twos on the second half of the word appear before $n_0$ zeros then all of the twos there are processed by $\mu$ wile in zone of zeros. (Note that all of twos of the first part of the word are processed while not in the zone of zeros.)
