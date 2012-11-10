@@ -63,9 +63,9 @@ proved that any non-trivial absolute value on the rational numbers $Q$ is equiva
 This result shows that using $p$-adic numbers is not merely one of many possibilities to generalize the definition of deterministic algorithms but rather the only remaining possibility not yet explored.
 
 There are many distinct $p$-adic absolute values corresponding to the many prime numbers $p$. These absolute values are traditionally  called {\em ultrametric}. 
-Absolute values are needed to consider {\em distances} among objects. We have used to rationsl and irrational numbers as measures for distances, and there is a psychological difficulty to imagine that something else can be used instead of irrational numbers.
+Absolute values are needed to consider {\em distances} among objects. We have used to rational and irrational numbers as measures for distances, and there is a psychological difficulty to imagine that something else can be used instead of irrational numbers.
 However, there is an important feature that distincts $p$-adic numbers from real numbers. Real numbers (both rational and irrational) are linearly ordered.
-$p$-adic numbers cannot be linearly ordered. This is why {\em valuations} of $p$-adic numbers are considered. The situation is similar in Quantum Computation. Quantum amplitudes are complex numbers which also cannot be linearly ordered. The counterpart of valuation for quantum algorithms is {\em measurement} translating a complex number $a + bi$ into a real number $a^2 + b^2$. Valuations of $p$-adic numbers are rational numbers.
+$p$-adic numbers cannot be linearly ordered. This is why {\em valuations} of $p$-adic numbers are considered. The situation is similar in quantum computation. Quantum amplitudes are complex numbers which also cannot be linearly ordered. The counterpart of valuation for quantum algorithms is {\em measurement} translating a complex number $a + bi$ into a real number $a^2 + b^2$. Valuations of $p$-adic numbers are rational numbers.
 
 Ultrametric finite automata and ultrametric Turing machines are reasonably similar to probabilistic finite automata and Turing machines. Hence for the first papers on ultrametric algorithms it is important to show the features that differ ultrametric algorithms from probabilistic ones.
 
@@ -162,7 +162,7 @@ We now proceed to describe multiplication. First note that if $n$ is a natural
 number and $\alpha $ a $p$-adic integer, then we have a naturally defined $n\alpha  = \alpha +\alpha + \cdots +\alpha $
 ($n$ times, with $0\alpha  = 0$, of course).  This limited multiplication satisfies some obvious equalities, such as
 $(m + n)\alpha = m\alpha  + n\alpha , n(\alpha  + \beta) = n\alpha  + n\beta , m(n\alpha ) = (mn)\alpha $, and so on. 
-Note also that multiplying by $p = \cdots 00100$ is the same as adding a $0$
+Note also that multiplying by $p = \cdots 0010$ is the same as adding a $0$
 on the right.
 Multiplying two $p$-adic integers on the other hand requires some more work.
 To do that, we note that if $\alpha _0, \alpha _1, \alpha _2, \cdots $  are $p$-adic integers, with $\alpha _1$ ending in (at
@@ -204,7 +204,7 @@ properties we wish it to satisfy (namely, $1\alpha  = \alpha $   for all    $\al
 
 Division of $p$-adics  cannot always be
 performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer — that is, the
-equation $p\alpha  = 1$  has no solution—since multiplying a $p$-adic integer by $p$ always
+equation $p\alpha  = 1$  has no solution, since multiplying a $p$-adic integer by $p$ always
 gives a $p$-adic integer ending in $0$. There is nothing really surprising here: $\frac{1}{p}$
 cannot be performed in the integers either.
 However, what is mildly surprising is that division by p is essentially the only
