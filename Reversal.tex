@@ -55,7 +55,7 @@ theoretical progress but practical implementation has met considerable difficult
 quantum algorithms are implemented on these prototypes, quantum cryptography is already practically used. Some people are skeptical concerning
 practicality of the initial spectacular promises of quantum computation but nobody can deny the existence of quantum computation.
 
-We consider a new type of indeterministic algorithms called {\em ultrametric} algorithms. They are very similar to probabilistic algorithms but while probabilistic algorithms use real numbers $r$ with $0 \leq r \leq 1$ as parameters, ultrametric algorithms use {\em p-adic} numbers as the parameters.
+We consider a new type of indeterministic algorithms called {\em ultrametric} algorithms. They are very similar to probabilistic algorithms but while probabilistic algorithms use real numbers $r$ with $0 \leq r \leq 1$ as parameters, ultrametric algorithms use {\em $p$-adic} numbers as the parameters.
 Slightly simplifying the description of the definitions one can say that ultrametric algorithms are the same probabilistic algorithms, only the interpretation of the probabilities is different. 
 
 Our choice of $p$-adic numbers instead of real numbers is not quite arbitrary. In 1916 Alexander Ostrowski 
@@ -76,7 +76,7 @@ walk at the same direction, it is not counted as a reversal. In our examples we 
 
 \section{p-adic numbers} 
 
-In describing the notion of {\em p-adic numbers} we follow (not very closely) the introductory text by David A. Madore \cite{M00}. 
+In describing the notion of {\em $p$-adic numbers} we follow (not very closely) the introductory text by David A. Madore \cite{M00}. 
 
 Let $p$ be an arbitrary prime number.
 We will call {\em $p$-adic digit} a natural number between $0$ and $p-1$ (inclusive). A
@@ -94,7 +94,7 @@ $$
 is its $p$-adic representation (in other words 
 $n = \sum ^{k-1}_{i=0}  a_ip^i$ with each $a_i$ a\\ $p$-adic
 digit) then we identify $n$ with the $p$-adic integer $(a_i)$ with $a_i = 0$ if $i \geq k$. This
-means that natural numbers are exactly the same thing as p-adic integer only a
+means that natural numbers are exactly the same thing as $p$-adic integer only a
 finite number of whose digits are not $0$. Also note that $0$ is the $p$-adic integer all of
 whose digits are $0$, and that $1$ is the $p$-adic integer all of whose digits are $0$ except
 the right-most one (digit $0$) which is $1$.
@@ -194,7 +194,7 @@ $$
 \end{array}
 $$
 
-We  have described above the set of p-adic integers, which we will call $\mathbb{Z}_p$, with two binary
+We  have described above the set of $p$-adic integers, which we will call $\mathbb{Z}_p$, with two binary
 operations on it, addition and multiplication. $\mathbb{Z}_p$ is a commutative ring, i.e., 
 addition is associative and commutative,  zero exists
 and satisfies the properties we wish it to satisfy, that multiplication is associative
@@ -202,13 +202,13 @@ and commutative, and distributive over addition, and that 1 exists and satisfies
 properties we wish it to satisfy (namely, $1\alpha  = \alpha $   for all    $\alpha $).
 
 
-Division of p-adics  cannot always be
+Division of $p$-adics  cannot always be
 performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer — that is, the
 equation $p\alpha  = 1$  has no solution—since multiplying a $p$-adic integer by $p$ always
 gives a $p$-adic integer ending in $0$. There is nothing really surprising here: $\frac{1}{p}$
 cannot be performed in the integers either.
 However, what is mildly surprising is that division by p is essentially the only
-division which cannot be performed in the p-adic integers.  This is one of the reasons why the notion of
+division which cannot be performed in the $p$-adic integers.  This is one of the reasons why the notion of
 $p$-adic integers is generalized and {\em $p$-adic numbers} are introduced. They are formal sequences 
 of $p$-adic digits such that the sequence is infinite in the left-hand direction but finite in the
 right-hand direction. The notion of {\em $p$-adic dot} is introduced. The set of all $p$-adic numbers is denoted by 
