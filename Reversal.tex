@@ -74,247 +74,55 @@ Below  we consider ultrametric versus deterministic Turing machines with one inp
 The complexity measure is the number of reversals on the work tape (no reversals are allowed on the input tape). If the head on the work tape stays on the same cell for some time and then continues it's
 walk at the same direction, it is not counted as a reversal. In our examples we compare advantages of ultrametric Turing machines with a constant number of reversals over deterministic and probabilistic Turing machines with a constant number of reversals.
 
-\section{p-adic numbers} 
+\section{$p$-adic numbers}
+\subsection{Introduction to $p$-adic numbers}
+A $p$-adic digit is a natural number between 0 and $p-1$ (inclusive) where $p$ is an arbitrary prime number. A $p$-adic integer is a sequence $(a_i)_{i \in N}$, where $a_i$ is a $p$-adic integer. This can also be written as $\cdots a_i \cdots a_2a_1a_0$. 
+This sequence corresponds to the natural number $\sum\limits_{i=0}^{+\infty}a_ip^i$, where $p$ is the chosen prime number and the base of the number system. This sequence is infinite to the left side. For natural numbers, only a finite number of digits will be non-zero. Given a natural number $n$, the non-zero part of its $p$-adic representation will be exactly the same as the number's representation in base $p$. For example, the decimal number 42 is written in base 5 as 132 and its representation in 5-adic numbers is $\cdots 0 \cdots 0132$.
 
-In describing the notion of {\em $p$-adic numbers} we follow (not very closely) the introductory text by David A. Madore \cite{M00}. 
-
-Let $p$ be an arbitrary prime number.
-We will call {\em $p$-adic digit} a natural number between $0$ and $p-1$ (inclusive). A
-{\em $p$-adic integer} is by definition a sequence $(a_i)_{i \in N}$ of $p$-adic digits. We write this
-conventionally as
+For negative numbers and non-integers, the situation is considerably different. As an example, let's consider the number $\frac{1}{2}$ and its 5-adic representation. Adding $\frac{1}{2}$ to itself returns 1, whose 5-adic representation is $\cdots 0 \cdots 001$. Knowing this, $\frac{1}{2}$ can be expressed in 5-adic notation like this:
 $$
-\cdots a_i \cdots  a_2 a_1 a_0
-$$
-(that is, the $a_i$ are written from left to right).
-
-If $n$ is a natural number, and
-$$
-n = \overline{a_{k-1} a_{k-2} \cdots  a_1 a_0}
-$$
-is its $p$-adic representation (in other words 
-$n = \sum ^{k-1}_{i=0}  a_ip^i$ with each $a_i$ a\\ $p$-adic
-digit) then we identify $n$ with the $p$-adic integer $(a_i)$ with $a_i = 0$ if $i \geq k$. This
-means that natural numbers are exactly the same thing as $p$-adic integer only a
-finite number of whose digits are not $0$. Also note that $0$ is the $p$-adic integer all of
-whose digits are $0$, and that $1$ is the $p$-adic integer all of whose digits are $0$ except
-the right-most one (digit $0$) which is $1$.
-If $\alpha  = (a_i)$ and $\beta = (b_i)$ are two $p$-adic integers, we will now define their
-sum. To that effect, we define by induction a sequence $(c_i)$ of $p$-adic digits and a
-sequence $(\epsilon _i)$ of elements of $\{0, 1\}$ (the "carries") as follows:\\
-
-
-\begin{itemize}
-  \item  $\epsilon _0 \mbox{ is } 0.$\\
-  \item  $c_i \mbox{ is } a_i + b_i + \epsilon _i \mbox{ or } a_i + b_i + \epsilon _i - p \mbox{ according as which of these two is a }\\
-p\mbox{-adic digit (in other words, is between $0$ and $p - 1$). In the former case,}\\
-\epsilon _i+1 = 0 \mbox{ and in the latter, } \epsilon _i+1 = 1.$
-\end{itemize}
-
-
-Under those circumstances, we let $\alpha + \beta = (c_i)$ and we call $\alpha + \beta $ the sum of
-$\alpha $ and $\beta $. Note that the rules described above are exactly the rules used for adding
-natural numbers in $p$-adic representation. In particular, if $\alpha $ and $\beta $ turn out to be
-natural numbers, then their sum as a $p$-adic integer is no different from their sum
-as a natural number. So $2 + 2 = 4$ remains valid (whatever $p$ is  but if $p = 2$ it
-would be written $\cdots  010 + \cdots  010 = \cdots 100$).
-Here is an example of a $7$-adic addition:
-$$
-\begin{array}{rrrrrrrr|}
-\hline
-\cdots &2&5&1&4&1&3\\
-\hline
-\cdots & 1& 2 &1& 1 & 0& 2\\
+\begin{tabular}{rrrrrrrrr|}
+$\cdots$ &2 &2 &2 &2 &2 &3\\
+$\cdots$ &2 &2 &2 &2 &2 &3\\
 \hline
 \hline
-\cdots &4& 0& 2& 5& 1 & 5 \\
+$\cdots$ &0 &0 &0 &0 &0 &1\\
 \hline
-\end{array}
+\end{tabular}
 $$
+Almost any rational number can thus be expressed as a $p$-adic integer. The only exceptions for any given $p$ are numbers in the form $\frac{a}{b}$, where $a$ is not divisible by $p$, but $b$ is.
 
+Numbers that cannot be expressed as $p$-adic integers can, however, be expressed as $p$-adic numbers. As an example, let's look at the 5-adic representation of $\frac{1}{5}$, which we know cannot be expressed as a 5-adic integer. Instead, it's expressed as $\cdots 0 \cdots 000.1$. When writing numbers like this, it's important that the $p$-adic representation is still infinite to the left and finite to the right.
 
-This addition of $p$-adic integers is associative, commutative, and verifies 
-$\alpha + 0 = \alpha $ for all $\alpha $ (recall that $0$ is the $p$-adic integer all of whose digits are $0$).
-Subtraction of $p$-adic integers is also performed in exactly the same way as
-that of natural numbers in $p$-adic form. 
-Note that this subtraction scheme gives us the negative integers readily: for
-example, subtract $1$ from $0$ (in the 7-adics) :
-$$
-\begin{array}{rrrrrrrr|}
-\hline
-\cdots &0&0&0&0&0&0\\
-\hline
-\cdots & 0& 0 &0& 0 & 0& 1\\
-\hline
-\hline
-\cdots &6& 6& 6& 6& 6 & 6 \\
-\hline
-\end{array}
-$$
-(each column borrows a $1$ from the next one on the left). So $ -1 = \cdots 666 $ as
-7-adics. More generally, $-1$ is the $p$-adic all of whose digits are $p-1$, $-2$ has all
-of its digits equal to $p-1$ except the right-most which is $p-2$, and so on. In fact,
-(strictly) negative integers correspond exactly to those $p$-adics all of whose digits
-except a finite number are equal to $p-1$.
+The basic arithmetic operations - addition, subtraction, multiplication and division - can be performed on $p$-adic numbers just as well as their decimal representations. Addition, subtraction and multiplication also work in $p$-adic integers, but division is not guaranteed to - just as division of integers often leads to rational numbers, so division of $p$-adic integers can lead to $p$-adic numbers.
 
-It can then be verified that $p$-adic integers, under addition, form an abelian
-group.
-We now proceed to describe multiplication. First note that if $n$ is a natural
-number and $\alpha $ a $p$-adic integer, then we have a naturally defined $n\alpha  = \alpha +\alpha + \cdots +\alpha $
-($n$ times, with $0\alpha  = 0$, of course).  This limited multiplication satisfies some obvious equalities, such as
-$(m + n)\alpha = m\alpha  + n\alpha , n(\alpha  + \beta) = n\alpha  + n\beta , m(n\alpha ) = (mn)\alpha $, and so on. 
-Note also that multiplying by $p = \cdots 0010$ is the same as adding a $0$
-on the right.
-Multiplying two $p$-adic integers on the other hand requires some more work.
-To do that, we note that if $\alpha _0, \alpha _1, \alpha _2, \cdots $  are $p$-adic integers, with $\alpha _1$ ending in (at
-least) one zero, $\alpha _2$ ending in (at least) two zeros, and so on, then we can define
-the sum of all the $\alpha _i$, even though they are not finite in number. Indeed, the last
-digit of the sum is just the last digit of $\alpha _0$ (since $\alpha _1, \alpha _2, \cdots $ all end in zero), the
-second-last is the second-last digit of $\alpha _0 + \alpha _1$ (because $\alpha _2, \alpha _3, \cdots $ all end in 00),
-and so on: every digit of the (infinite) sum can be calculated with just a finite sum.
-Now we suppose that we want to multiply $\alpha $ and $\beta  = (b_i)$ two $p$-adic integers. We
-then let $\alpha _0 = b_0\alpha $ (we know how to define this since $b_0$ is just a natural number),
-$\alpha _1 = pb_1\alpha $, and so on: $\alpha _i = p^ib_i\alpha $. Since $\alpha _i$ is a $p$-adic integer multiplied by $p_i$, it
-ends in $i$ zeros, and therefore the sum of all the $\alpha _i$ can be defined.
-This procedure may sound complicated, but,  it is the usual algorithm
- to multiply two natural numbers. Here
-is an example of a 7-adic multiplication:
-$$
-\begin{array}{rrrrrrrr|}
-\cdots &2&5&1&4&1&3\\
-\cdots & 1& 2 &1& 1 & 0& 2\\
-\hline
-\cdots &5& 3& 3& 1& 2 & 6 \\
-\cdots &0&0& 0&0&0& \\
-\cdots &1&4&1&3&&\\
-\cdots &4&1&3&&&\\
-\cdots &2&6&&&&\\
-\cdots &3&&&&&\\
-\hline
-\cdots &3&1&0&4&2&6
-\end{array}
-$$
-
-We  have described above the set of $p$-adic integers, which we will call $\mathbb{Z}_p$, with two binary
-operations on it, addition and multiplication. $\mathbb{Z}_p$ is a commutative ring, i.e., 
-addition is associative and commutative,  zero exists
-and satisfies the properties we wish it to satisfy, that multiplication is associative
-and commutative, and distributive over addition, and that 1 exists and satisfies the
-properties we wish it to satisfy (namely, $1\alpha  = \alpha $   for all    $\alpha $).
-
-
-Division of $p$-adics  cannot always be
-performed. For example, $\frac{1}{p}$ has no meaning as a $p$-adic integer — that is, the
-equation $p\alpha  = 1$  has no solution, since multiplying a $p$-adic integer by $p$ always
-gives a $p$-adic integer ending in $0$. There is nothing really surprising here: $\frac{1}{p}$
-cannot be performed in the integers either.
-However, what is mildly surprising is that division by p is essentially the only
-division which cannot be performed in the $p$-adic integers.  This is one of the reasons why the notion of
-$p$-adic integers is generalized and {\em $p$-adic numbers} are introduced. They are formal sequences 
-of $p$-adic digits such that the sequence is infinite in the left-hand direction but finite in the
-right-hand direction. The notion of {\em $p$-adic dot} is introduced. The set of all $p$-adic numbers is denoted by 
-$Q_p$.
-
-
-For example, with our usual example of p = 7 we show that the number
-$\alpha  = \cdots 333334$  is the number “one half” by adding it to it itself:   
-$$
-\begin{array}{rrrrrrrr|}
-\cdots &3&3&3&3&3&4\\
-\cdots & 3& 3 &3& 3 & 3& 4\\
-\hline
-\hline
-\cdots &0& 0& 0& 0& 0 & 1 \\
-\hline
-\end{array}
-$$
-Thus, in the 7-adic integers, “one half” is an integer. And so are “one third”
-$(\cdots 44445)$, “one quarter” $(\cdots 1515152)$, “one fifth” $(\cdots 541254125413)$, “one
-sixth” $(\cdots 55556)$, “one eighth” $(\cdots 0606061)$, “one ninth” $(\cdots 3613613614)$, “one
-tenth” $(\cdots  462046205)$, “one eleventh” $(\cdots 162355043116235504312)$ and so on.
-But “one seventh”, “one fourteenth” and so on, are not 7-adic integers. They are expressed as follows.
-$$
-\begin{array}{rrrrrrrr|}
-\cdots &0&0&0&0&.&1\\
-\end{array}
-$$
-$$
-\begin{array}{rrrrrrrrr|}
-\cdots &0&0&0&0&.&0&1\\
-\end{array}
-$$
-It is important that $p$-adic numbers not being $p$-adic integers and irrational real numbers are kind of incompatible.
-It is known that no $p$-adic number corresponds to $\sqrt{2}, \pi , e$ and there is a continuum of $p$-adic numbers
-not corresponding to any real number. Moreover, if $p_1 \neq p_2$ then $p_1$-adic and $p_2$-adic numbers also are
-incompatible.
-Theory of $p$-adic numbers is presented in full detail in \cite{G83,K84}.
-
-However, $p$-adic numbers is not merely one of generalizations of rational numbers. They are very special because of the notion 
-of {\em absolute value} of numbers. 
-
-
-If $X$ is a nonempty set, a distance, or {metric}, on $X$ is a function $d$ from pairs of elements $(x,y)$ of $X$
-to the nonnegative real numbers such that 
+It is fairly obvious that for every rational number $n$ there is a prime $p$ that $n$ can be expressed as a $p$-adic integer. The same does not hold for real numbers. Irrational numbers cannot be expressed as $p$-adic numbers. This does not mean, however, that the set of $p$-adic numbers for any given $p$ is a subset of the real numbers - there is a continuum of $p$-adic numbers that do not correspond to any real number. \cite{Rus12}
+\subsection{$p$-adic absolute values}
+Let $X$ be a nonempty set. A function $d: X \times X \rightarrow R_{\geq 0}$ is called a metric in this set if it satisfies the following properties:
 \begin{enumerate}
 \item $d(x,y) = 0$ if and only if $x = y$,\\
 \item $d(x,y) = d(y,x)$,\\
 \item $d(x,y) \leq d(x,z) + d(z,y)$ for all $z \in X$.
 \end{enumerate}
+A metric function is used to determine the distance between two elements of a set. An element's distance from zero $d(x,0)$ is called its norm or absolute value and is denoted by $||x||$.
 
-A set $X$ together with a metric $d$ is called a {\em metric space}. The same set $X$ can give rise to many different metric spaces.
-
-
-{\em Norm} of an element $x \in X$ is the distance from $0$:
+The norm of an element satisfies the following properties:
 \begin{enumerate}
-\item $\parallel x \parallel = 0$ if and only if $x = y$,\\
-\item $\parallel x.y \parallel = \parallel x \parallel . \parallel xy \parallel $,\\
-\item $\parallel x+y \parallel  \leq \parallel x \parallel  + \parallel y \parallel $.
+\item $||x||=0$ if and only if $x=0$,\\
+\item $||x*y|| = ||x||*||y||$,\\
+\item $||x+y|| \leq ||x||+||y||$ (the triangle inequality).
 \end{enumerate}
-
-We know one metric on $Q$  induced by the ordinary absolute value. However, there are other norms as well.
-
-A norm  is called {\em ultrametric}  if the third requirement can be replaced by the stronger statement:
-$\parallel x+y \parallel  \leq \max \{\parallel x \parallel  , \parallel y \parallel \}$.
-Otherwise, the norm is called {\em Archimedean}.
+If the third property can be replaced by its stronger variant - the strong triangle inequality $||x+y|| \leq max(||x||,||y||)$, the norm is called ultrametric. Otherwise, it is called Archimedean. \cite{Rus12}
 
 \begin{definition}
-Let $p \in \{2,3,5,7,11,13,\cdots \}$ be any prime number. For any nonzero integer $a$, let the $p$-adic ordinal (or valuation) of $a$, denoted $ord_p a$, 
-be the highest power of $p$ which divides $a$, i.e., the greatest $m$ such that $a \equiv 0 (mod p^{m})$. For any rational number $x = a/b$, 
-denote $ord_p x$ to be $ord_p a - ord_p b$. Additionally, $ord_p x = \infty $ if and only if $x = 0$.
+For every rational non-zero number $\alpha$ there is a unique prime factorization - $\alpha = \pm 2^{\alpha_2}3^{\alpha_3}5^{\alpha_5}7^{\alpha_7} \cdots$, where all $\alpha_i$ are integers, only a finite number of which are non-zero. The \emph{$p$-adic absolute value} (also called the \emph{$p$-norm}) of a rational number $\alpha$ is 
+$||x||_p = \begin{cases}
+p^{-\alpha_p}, \text{if $\alpha \neq 0$} \\
+0, \text{if $\alpha = 0$}
+\end{cases} $
 \end{definition}
 
-For example, the 7-adic valuation of 7 is 1. That of 14 is also 1, as are those of
-21, 28, 35, 42 or 56. The 7-adic valuation of 49, on the other hand, is 2, as is that
-of 98. And the 7-adic valuation of 343 is 3. The 2-adic valuation of an integer is
-0 iff it is odd, it is at least 1 iff it is even, at least 2 iff the integer is multiple by 4,
-and so on. The 7-adic valuation of 1/7 is -1, and so are those of 3/7, 1/14, 5/56.
-The 7-adic valuation of 1/2 or 8/3 is 0. The 7-adic valuation of 7/3 or 14/5 is 1.
-The 7-adic valuation of 48/49 is -2.
-We now define the $p$-adic absolute value (or $p$-norm) of a rational number $r$ to be 
-$|r|_p = p^{-ord_p r}$. For example, $|p|_p = \frac{1}{p} , |1|_p = 1, |2p|_p = \frac{1}{p}$
-( if $p$ is odd), and $|\frac{1}{p^2}| = p^2$.
-
-\begin{definition}
-Let $p \in \{2,3,5,7,11,13,\cdots \}$ be any prime number. For arbitrary rational number $x$, its {\em $p$-norm} is:
-
-$$|x|_p = \begin{cases}
-            \frac{1}{p^{ord_p x}}, &  \text{if $x \neq 0$;}\\
-            0, & \text{if $x = 0$.}
-            \end{cases}
-$$
-
-\end{definition} 
- 
-To make the equivalence of both definitions clearer, we say that the valuation
-of a $p$-adic number $(a_i)$ is the smallest $i_0$ (possibly positive) such that $a_i = 0$ for
-all $i < i_0$. With this terminology, a $p$-adic integer is exactly a $p$-adic number with
-non negative valuation. And a small $p$-adic integer (one which ends in 0) is one
-whose valuation is (strictly) positive. It is not hard to check that this definition
-coincides with the aforementioned one for integers, hence for rationals.
-As for rationals, we define the $p$-adic absolute value and distance by $|\alpha |_p =
-p^{- ord_p \alpha }$. Note that the $p$-adic absolute value of a $p$-adic number is real number (it
-is also a $p$-adic, and in fact a rational, but ought not be considered as such).            
-
-Rational numbers are $p$-adic integers for all prime numbers $p$. The nature of irrational numbers is more complicated. For instance, $\sqrt{2}$ just does not exist as a $p$-adic number. On the other hand, there is a of continuum  $p$-adic numbers not being real numbers. Moreover, there is a continuum of $3$-adic numbers not being $5$-adic numbers, and vice versa.
+Theory of $p$-adic numbers is presented in full detail in \cite{M00,G83,K84}.
  
 \section{Ultrametric machines}
 
@@ -498,6 +306,11 @@ exceeds $c |x|$ .\\
 
 
 \begin{thebibliography}{99}
+
+\bibitem{Rus12}
+R\= usi\c n\v s Freivalds.
+{\em Ultrametric automata and Turing machines}
+EasyChair Proceedings, vol. 10, "Turing-100. The Alan Turing Centenary", pp. 98-112, 2012.
 
 
 \bibitem{Abl89}
