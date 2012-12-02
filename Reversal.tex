@@ -110,7 +110,7 @@ p^{-\alpha_p}, \text{if $\alpha \neq 0$} \\
  
 \section{Ultrametric machines}
 
-Ultrametric machines are defined exactly in the same way as probabilistic machines, only the parameters called {\em probabilities of transition}  from one state
+Ultrametric machines are defined in the same way as probabilistic machines, only the parameters called {\em probabilities of transition}  from one state
 to another one are real numbers between 0 and 1 in probabilistic machines, and they
 are $p$-adic numbers called {\em amplitudes} in the ultrametric machines \cite{Rus12}. Formulas to calculate the amplitudes after one, two, three, $\cdots $ steps of computation are exactly the same as the formulas to calculate the probabilities in the probabilistic machines. 
 
@@ -203,9 +203,8 @@ Let $n$ be a sufficiently large natural number. Exact requirements for it are sp
 Let us denote by $c(w, i)$ the number of intersections of a point $i$ on the work tape of machine $\mu$ and a word $w$ and let us denote by $f(n)$ $\max c(w, i)$, where the maximum is taken over all words of length $\leq (2a^2\cdot b+1)n^2$ and all points of the tape. Let us note that $f(n)=o(\log n)$ which follows from the supposition by contradiction. %TODO varbÅ«t vajag pÄrformulÄ“t.
 The word starts with $n_0$ zeros. The part of the work tape which is traversed while reading these zeros will be called the zone of zeros. The length of the zone of zeros does not exceed $2a\cdot (n_0+f(n))$.
 
-After reading the first $n_0$ zeros our word is constructed as follows. If the machine is going to read a letter from the input tape and while doing so the head is positioned over the zone of zeros then this letter is set to be $1$. %TODO varbÅ«t vajag pÄrformulÄ“t
-If however the head is not positioned over the zone of zeros the letter is set to be $2$. This continues while the number of twos in our word reaches $n_2$. After that we set the next letter to be $3$. Afterwards we again consider how the word is going to be processed by the machine. %TODO varbÅ«t vajag pÄrformulÄ“t.
-While the head is positioned over the zone of zeros the corresponding input letters are set to be $2$. Whereas they are set to be $0$ while the head is positioned elsewhere. This continues until there is a total of $n_0$ zeros or $n_2$ twos after the letter $3$. After which the remaining zeros (or twos) and ones are written at the end of the word so that it belongs to the language $Q$.
+After reading the first $n_0$ zeros our word is constructed as follows. While the machine is going to read a letter from the input tape and its head is positioned over the zone of zeros the letter is set to be $1$. %TODO varbÅ«t vajag pÄrformulÄ“t
+If however the head is not positioned over the zone of zeros the letter is set to be $2$. This continues while the number of twos in our word reaches $n_2$. After that we set the next letter to be $3$. Subsequently while the head is positioned over the zone of zeros the corresponding input letters are set to be $2$, otherwise they are set to be $0$. This continues until there is a total of $n_0$ zeros or $n_2$ twos after the letter $3$. Hereupon the remaining zeros (or twos) and ones are written at the end of the word so that it belongs to the language $Q$.
 
 Let us note the following peculiarity of how these words are processed by the machine $\mu$. If $n_0$ zeros on the second half of a word appear before $n_2$ twos then all of the zeros there are processed by $\mu$ while not in the zone of zeros. However if $n_2$ twos on the second half of the word appear before $n_0$ zeros then all of the twos there are processed by $\mu$ wile in zone of zeros. (Note that all of twos of the first part of the word are processed while not in the zone of zeros.)
 
