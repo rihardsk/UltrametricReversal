@@ -76,28 +76,13 @@ The complexity measure is the number of reversals on the work tape (no reversals
 walk at the same direction, it is not counted as a reversal. In our examples we compare advantages of ultrametric Turing machines with a constant number of reversals over deterministic and probabilistic Turing machines with a constant number of reversals.
 
 \section{$p$-adic numbers}
+In this section we give a an introduction to $p$-adic numbers. The main definition used throughout the paper however is the notion of $p$-adic norm. Therefore the introduction is very brief, however the theory of $p$-adic numbers is presented in full detail in \cite{M00,G83,K84}.
 \subsection{Introduction to $p$-adic numbers}
 A $p$-adic digit is a natural number between 0 and $p-1$ (inclusive) where $p$ is an arbitrary prime number. A $p$-adic integer is a sequence $(a_i)_{i \in N}$, where $a_i$ is a $p$-adic integer. This can also be written as $\cdots a_i \cdots a_2a_1a_0$. 
 This sequence corresponds to the natural number $\sum\limits_{i=0}^{+\infty}a_ip^i$, where $p$ is the chosen prime number and the base of the number system. This sequence is infinite to the left side. For natural numbers, only a finite number of digits will be non-zero. Given a natural number $n$, the non-zero part of its $p$-adic representation will be exactly the same as the number's representation in base $p$. For example, the decimal number 42 is written in base 5 as 132 and its representation in 5-adic numbers is $\cdots 0 \cdots 0132$.
 
-For negative numbers and non-integers, the situation is considerably different. As an example, let's consider the number $\frac{1}{2}$ and its 5-adic representation. Adding $\frac{1}{2}$ to itself returns 1, whose 5-adic representation is $\cdots 0 \cdots 001$. Knowing this, $\frac{1}{2}$ can be expressed in 5-adic notation like this:
-$$
-\begin{tabular}{rrrrrrrrr|}
-$\cdots$ &2 &2 &2 &2 &2 &3\\
-$\cdots$ &2 &2 &2 &2 &2 &3\\
-\hline
-\hline
-$\cdots$ &0 &0 &0 &0 &0 &1\\
-\hline
-\end{tabular}
-$$
-Almost any rational number can thus be expressed as a $p$-adic integer. The only exceptions for any given $p$ are numbers in the form $\frac{a}{b}$, where $a$ is not divisible by $p$, but $b$ is.
+For negative numbers and non-integers, however, the situation is considerably different. Essentially negative $p$-adic numbers are the ones that give the result 0 when added to the same positive number. For example $5$-adic $-2$ is $\cdots 4443$. And similarly we find the fraction $\frac{1}{2}$. Adding $\frac{1}{2}$ to itself returns 1, whose 5-adic representation is $\cdots 0001$. Knowing this, $\frac{1}{2}$ can be expressed in 5-adic notation as $\cdots 2223$.
 
-Numbers that cannot be expressed as $p$-adic integers can, however, be expressed as $p$-adic numbers. As an example, let's look at the 5-adic representation of $\frac{1}{5}$, which we know cannot be expressed as a 5-adic integer. Instead, it's expressed as $\cdots 0 \cdots 000.1$. When writing numbers like this, it's important that the $p$-adic representation is still infinite to the left and finite to the right.
-
-The basic arithmetic operations - addition, subtraction, multiplication and division - can be performed on $p$-adic numbers just as well as their decimal representations. Addition, subtraction and multiplication also work in $p$-adic integers, but division is not guaranteed to - just as division of integers often leads to rational numbers, so division of $p$-adic integers can lead to $p$-adic numbers.
-
-It is fairly obvious that for every rational number $n$ there is a prime $p$ that $n$ can be expressed as a $p$-adic integer. The same does not hold for real numbers. Irrational numbers cannot be expressed as $p$-adic numbers. This does not mean, however, that the set of $p$-adic numbers for any given $p$ is a subset of the real numbers - there is a continuum of $p$-adic numbers that do not correspond to any real number. \cite{Rus12}
 \subsection{$p$-adic absolute values}
 Let $X$ be a nonempty set. A function $d: X \times X \rightarrow R_{\geq 0}$ is called a metric in this set if it satisfies the following properties:
 \begin{enumerate}
@@ -122,14 +107,12 @@ p^{-\alpha_p}, \text{if $\alpha \neq 0$} \\
 0, \text{if $\alpha = 0$}
 \end{cases} $
 \end{definition}
-
-Theory of $p$-adic numbers is presented in full detail in \cite{M00,G83,K84}.
  
 \section{Ultrametric machines}
 
 Ultrametric machines are defined exactly in the same way as probabilistic machines, only the parameters called {\em probabilities of transition}  from one state
 to another one are real numbers between 0 and 1 in probabilistic machines, and they
-are $p$-adic numbers called {\em amplitudes} in the ultrametric machines. Formulas to calculate the amplitudes after one, two, three, $\cdots $ steps of computation are exactly the same as the formulas to calculate the probabilities in the probabilistic machines. 
+are $p$-adic numbers called {\em amplitudes} in the ultrametric machines \cite{Rus12}. Formulas to calculate the amplitudes after one, two, three, $\cdots $ steps of computation are exactly the same as the formulas to calculate the probabilities in the probabilistic machines. 
 
 
 The definition of ultrametric machines requires that the input word on the input tape is followed by a special
@@ -305,7 +288,6 @@ exceeds $c |x|$ .\\
 exceeds $c |x|$ .\\
 \end{theorem}
 
-
 \begin{thebibliography}{99}
 
 \bibitem{Rus12}
@@ -313,7 +295,7 @@ R\= usi\c n\v s Freivalds.
 {\em Ultrametric automata and Turing machines}
 EasyChair Proceedings, vol. 10, "Turing-100. The Alan Turing Centenary", pp. 98-112, 2012.
 
-\bibitem{AF86} %TODO: uz šo vajag atsauci
+\bibitem{AF86} %TODO uz šo vajag atsauci
 Farid M. Ablayev, R\= usi\c n\v s Freivalds. 
 Why Sometimes Probabilistic Algorithms Can Be More Effective. 
 {\em Lecture Notes in Computer Science,} 233 :1--14, 1986.
@@ -327,18 +309,18 @@ vol. 1, No 1, 34--41, 2009
 
 \iffalse
 
-\bibitem{F99} %TODO: uz šo vajag atsauci
+\bibitem{F99} %TODO uz šo vajag atsauci
 R\= usi\c n\v s Freivalds.
 How to Simulate Free Will in a Computational Device. 
 {\em ACM Computing Surveys,} vol. 31, No. 3es, p. 15, 1999.
 
 
-\bibitem{F91} %TODO: uz šo vajag atsauci
+\bibitem{F91} %TODO uz šo vajag atsauci
 R\= usi\c n\v s Freivalds.
 Complexity of Probabilistic Versus Deterministic Automata. 
 {\em Lecture Notes in Computer Science,} 502:565-613, 1991. 
 
-\bibitem{FK94} %TODO: uz šo vajag atsauci
+\bibitem{FK94} %TODO uz šo vajag atsauci
 R\= usi\c n\v s Freivalds, Marek Karpinski. 
 Lower Space Bounds for Randomized Computation. 
 {\em Lecture Notes in Computer Science,} 820:580-592, 1994. 
